@@ -14,12 +14,6 @@
 
 //helper functions
 char* path_name(const char* direct, char* songName, char* buffer, size_t length){
-	/**
-	getcwd(buffer, length);
-	strcat(buffer, "/");
-	strcat(buffer, songName);
-	**/
-	//snprintf(destination, length, format, variables....)
 	snprintf(buffer, length, "%s/%s", direct, songName);
 	return buffer;
 }
