@@ -9,6 +9,7 @@ int main(int argc, char* argv[]){
 	Song* songHead = NULL;
 	char buffer[PATH_MAX];
 	char file[PATH_MAX];
+	char cwd[PATH_MAX];
 	char* name;
 	
 	DIR *dr = opendir(argv[1]);
@@ -17,12 +18,13 @@ int main(int argc, char* argv[]){
 		return -2;
 	}
 	
-	strcpy(file, argv[1]);
-	char* fileLastSlash = strrchr(file, '/');
-	name = fileLastSlash ? fileLastSlash + 1 : file;
-	getcwd(buffer, PATH_MAX);
-	snprintf(buffer, PATH_MAX, "%s/%s", buffer, file);
-	playlist = create_playlist_node(buffer, file, name, songHead, songHead);
+	strncpy(file, argv[1], sizeof(file) - 1);
+    file[sizeof(file) -1 ] = '\0';
+    char* fileLastSlash = strrchr(file, '/');
+    name = fileLastSlash ? fileLastSlash + 1 : file;
+    getcwd(cwd, PATH_MAX);
+    snprintf(buffer, PATH_MAX, "%s/%s", cwd, file);
+    playlist = create_playlist_node(buffer, file, name, songHead, songHead);
 
 	struct dirent *de;
 	int songcount = 0;
